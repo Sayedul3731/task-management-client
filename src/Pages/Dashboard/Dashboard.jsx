@@ -1,14 +1,37 @@
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
+import { useContext } from "react";
+import { AuthContext } from "../../Provider/AuthProvider/AuthProvider";
+import Swal from "sweetalert2";
 
 const Dashboard = () => {
     const { register, handleSubmit, reset } = useForm();
-    
+    const {user} = useContext(AuthContext)
+    const axiosSecure = useAxiosSecure()
   
     const handleToDoTask = (data) => {
         document.getElementById('to_do_task_modal').showModal()
-        console.log(data);
-        reset()
+        const newToDo = {
+            task: data?.toDoTask,
+            email: user?.email
+        }
+       if(newToDo?.task){
+        axiosSecure.post("/toDo", newToDo)
+        .then(res => {
+            console.log(res.data);
+            if(res?.data?.insertedId){
+                Swal.fire({
+                    position: "top-end",
+                    icon: "success",
+                    title: "Your To Do task added successfully!",
+                    showConfirmButton: false,
+                    timer: 1000
+                  });
+                  reset()
+            }
+        })
+       }
     }
     const handleOnGoingTask = (data) => {
         document.getElementById('ongoing_task_modal').showModal()
