@@ -1,9 +1,107 @@
-
+import { Link } from "react-router-dom";
+import { useForm } from "react-hook-form";
 
 const Dashboard = () => {
+    const { register, handleSubmit, reset } = useForm();
+    
+  
+    const handleToDoTask = (data) => {
+        document.getElementById('to_do_task_modal').showModal()
+        console.log(data);
+        reset()
+    }
+    const handleOnGoingTask = (data) => {
+        document.getElementById('ongoing_task_modal').showModal()
+        console.log(data);
+        reset()
+    }
+    const handleCompletedTask = (data) => {
+        document.getElementById('complete_task_modal').showModal()
+        console.log(data);
+        reset()
+    }
     return (
-        <div>
-            <h1>Dashboard</h1>
+        <div className="">
+            <div className="flex justify-end">
+                <Link to="/Profile"><h1 className="text-2xl font-semibold">Profile</h1></Link>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-3 gap-5">
+                <div>
+                    <h1 className="text-center space-y-3">To-Do List</h1>
+                    <p>Set up a new Git repository for Project X.</p>
+                    <p className="my-2">Set up a new Git repository for Project X.</p>
+                    <p>Set up a new Git repository for Project X.</p>
+                    <p className="my-2">Set up a new Git repository for Project X.</p>
+                    <div>
+                        <button onClick={handleToDoTask} className="bg-[#6a994e] w-full font-semibold py-1 rounded-sm">Add New Task</button>
+                    </div>
+                </div>
+                <div>
+                    <h1 className="text-center">Ongoing List</h1>
+                    <p>Debug and resolve issues in Module B.</p>
+                    <p className="my-2">Debug and resolve issues in Module B.</p>
+                    <p>Debug and resolve issues in Module B.</p>
+                    <p className="my-2">Debug and resolve issues in Module B.</p>
+                    <div>
+                        <button onClick={handleOnGoingTask} className="bg-[#6a994e] w-full font-semibold py-1 rounded-sm">Add New Task</button>
+                    </div>
+                </div>
+                <div>
+                    <h1 className="text-center">Completed List</h1>
+                    <p>Successfully integrated API for data retrieval.</p>
+                    <p className="my-2">Successfully integrated API for data retrieval.</p>
+                    <p>Successfully integrated API for data retrieval.</p>
+                    <p className="my-2">Successfully integrated API for data retrieval.</p>
+                    <div>
+                        <button onClick={handleCompletedTask} className="bg-[#6a994e] w-full font-semibold py-1 rounded-sm">Add New Task</button>
+                    </div>
+                </div>
+            </div>
+            {/* to do task modal here  */}
+            <dialog id="to_do_task_modal" className="modal bg-[#385229]">
+                <div className="modal-box text-black">
+                    <form method="dialog">
+                        {/* if there is a button in form, it will close the modal */}
+                        <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+                    </form>
+                    <form onSubmit={handleSubmit(handleToDoTask)} className=" mx-4">
+                        <textarea className="w-full p-2 " {...register("toDoTask")} placeholder="Write here your task ..." />
+                        <div className=" flex justify-center">
+                            <input type="submit" className="bg-[#6a994e] px-4 font-semibold text-white py-[2px]" />
+                        </div>
+                    </form>
+                </div>
+            </dialog>
+            {/* on going task modal here  */}
+            <dialog id="ongoing_task_modal" className="modal bg-[#385229]">
+                <div className="modal-box text-black">
+                    <form method="dialog">
+                        {/* if there is a button in form, it will close the modal */}
+                        <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+                    </form>
+                    <form onSubmit={handleSubmit(handleOnGoingTask)} className=" mx-4">
+                        <textarea className="w-full p-2 " {...register("onGoingTask")} placeholder="Write here your task ..." />
+                        <div className=" flex justify-center">
+                            <input type="submit" className="bg-[#6a994e] px-4 font-semibold text-white py-[2px]" />
+                        </div>
+                    </form>
+                </div>
+            </dialog>
+            {/* complete task modal here  */}
+            <dialog id="complete_task_modal" className="modal bg-[#385229]">
+                <div className="modal-box text-black">
+                    <form method="dialog">
+                        {/* if there is a button in form, it will close the modal */}
+                        <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+                    </form>
+                    <form onSubmit={handleSubmit(handleCompletedTask)} className=" mx-4">
+                        <textarea className="w-full p-2 " {...register("completeTask")} placeholder="Write here your task ..." />
+                        <div className=" flex justify-center">
+                            <input type="submit" className="bg-[#6a994e] px-4 font-semibold text-white py-[2px]" />
+                        </div>
+                    </form>
+                </div>
+            </dialog>
         </div>
     );
 };

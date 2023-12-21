@@ -4,6 +4,8 @@ import Home from "../Pages/Home/Home";
 import Dashboard from "../Pages/Dashboard/Dashboard";
 import Login from "../Pages/Login/Login";
 import Register from "../Pages/Register/Register";
+import PrivetRoutes from "./PrivetRoutes";
+import Profile from "../components/Profile/Profile";
 
 const router = createBrowserRouter([
     {
@@ -16,7 +18,7 @@ const router = createBrowserRouter([
             },
             {
                 path: "/Dashboard",
-                element: <Dashboard></Dashboard>
+                element: <PrivetRoutes><Dashboard></Dashboard></PrivetRoutes>
             },
             {
                 path: "/Login",
@@ -25,6 +27,10 @@ const router = createBrowserRouter([
             {
                 path: "/Register",
                 element: <Register></Register>
+            },
+            {
+                path: "/Profile",
+                element: <Profile></Profile>
             }
         ]
     },

@@ -1,11 +1,12 @@
 import { useContext } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../Provider/AuthProvider/AuthProvider";
 import Swal from "sweetalert2";
 
 
 const Navbar = () => {
-    const {logOut, user} = useContext(AuthContext)
+    const {logOut, user} = useContext(AuthContext);
+    const navigate = useNavigate()
     const navLinks = <>
         <li>
             <NavLink className={({ isActive, isPending }) => isPending ? "pending" : isActive ? "lg:text-xl md:font-medium mr-4 underline" : "lg:text-xl md:font-medium mr-4"} to="/">
@@ -29,6 +30,7 @@ const handleLogOut = () => {
           showConfirmButton: false,
           timer: 1000
         });
+        navigate("/Login")
       })
       .catch()
   }

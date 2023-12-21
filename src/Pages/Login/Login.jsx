@@ -52,7 +52,7 @@ const Login = () => {
                     text: "User Logged In Successfully.",
                     icon: "success"
                 });
-                navigate('/')
+                navigate(from, { replace: true })
                 console.log(result.user?.displayName, result.user?.email);
                 const userInfo = {
                     name:result.user?.displayName,
@@ -74,7 +74,7 @@ const Login = () => {
         <div className='min-h-[450px] md:min-h-[500px] max-w-7xl mx-auto lg:min-h-[600px] w-full mx-auto flex justify-center items-center'>
             <div className=' w-5/6  lg:w-1/2 bg-[#6C0A0F] p-8 rounded-md'>
                 <h1 className='text-2xl font-semibold text-white mb-8'>Please Login!</h1>
-                <form onSubmit={handleSubmit(onSubmit)}>
+                <form onSubmit={handleSubmit(onSubmit)} className='text-black'>
                     <p>
                         <input className='w-full my-3 px-3 py-1' placeholder='Your Email' {...register('email', { required: true })} />
                     </p>
