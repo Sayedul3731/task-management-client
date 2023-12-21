@@ -9,6 +9,11 @@ const Navbar = () => {
                 Home
             </NavLink>
         </li>
+        <li>
+            <NavLink className={({ isActive, isPending }) => isPending ? "pending" : isActive ? "lg:text-xl md:font-medium mr-4 underline" : "lg:text-xl md:font-medium mr-4"} to="/Dashboard">
+              Dashboard
+            </NavLink>
+        </li>
     </>
     return (
         <div className="navbar bg-base-100">
