@@ -35,12 +35,52 @@ const Dashboard = () => {
     }
     const handleOnGoingTask = (data) => {
         document.getElementById('ongoing_task_modal').showModal()
-        console.log(data);
+         console.log(data);
+        const newOnGoing = {
+            task: data?.onGoingTask,
+            email: user?.email
+        }
+       if(newOnGoing?.task){
+        axiosSecure.post("/onGoing", newOnGoing)
+        .then(res => {
+            console.log(res.data);
+            if(res?.data?.insertedId){
+                Swal.fire({
+                    position: "top-end",
+                    icon: "success",
+                    title: "Your Ongoing task added successfully!",
+                    showConfirmButton: false,
+                    timer: 1000
+                  });
+                  reset()
+            }
+        })
+       }
         reset()
     }
     const handleCompletedTask = (data) => {
         document.getElementById('complete_task_modal').showModal()
-        console.log(data);
+          console.log(data);
+        const newCompleteTask = {
+            task: data?.completeTask,
+            email: user?.email
+        }
+       if(newCompleteTask?.task){
+        axiosSecure.post("/complete", newCompleteTask)
+        .then(res => {
+            console.log(res.data);
+            if(res?.data?.insertedId){
+                Swal.fire({
+                    position: "top-end",
+                    icon: "success",
+                    title: "Your To Do task added successfully!",
+                    showConfirmButton: false,
+                    timer: 1000
+                  });
+                  reset()
+            }
+        })
+       }
         reset()
     }
     return (
