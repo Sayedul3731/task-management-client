@@ -4,12 +4,20 @@ import useAxiosSecure from "../../hooks/useAxiosSecure";
 import { useContext } from "react";
 import { AuthContext } from "../../Provider/AuthProvider/AuthProvider";
 import Swal from "sweetalert2";
+import useToDoTasks from "../../hooks/useToDoTasks";
+import useOnGoingTasks from "../../hooks/useOnGoingTasks";
+import useCompleteTasks from "../../hooks/useCompleteTasks";
 
 const Dashboard = () => {
     const { register, handleSubmit, reset } = useForm();
     const {user} = useContext(AuthContext)
-    const axiosSecure = useAxiosSecure()
-  
+    const axiosSecure = useAxiosSecure();
+    const [toDoTasks] = useToDoTasks();
+    const [onGoingTasks] = useOnGoingTasks();
+    const [completedTasks] = useCompleteTasks();
+    console.log(toDoTasks);
+    console.log(onGoingTasks);
+    console.log(completedTasks);
     const handleToDoTask = (data) => {
         document.getElementById('to_do_task_modal').showModal()
         const newToDo = {
@@ -83,6 +91,7 @@ const Dashboard = () => {
        }
         reset()
     }
+
     return (
         <div className="">
             <div className="flex justify-end">
