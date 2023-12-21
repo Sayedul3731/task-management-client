@@ -4,11 +4,14 @@ import './index.css'
 
 import { RouterProvider } from "react-router-dom";
 import router from './Routes/Routes.jsx';
+import AuthProvider from './Provider/AuthProvider/AuthProvider.jsx';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <div className='bg-[#606c38] text-white'>
-      <RouterProvider router={router} />
-    </div>
+    <AuthProvider>
+      <div className='bg-[#606c38] text-white'>
+        <RouterProvider router={router} />
+      </div>
+    </AuthProvider>
   </React.StrictMode>,
 )
