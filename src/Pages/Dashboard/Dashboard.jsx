@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../Provider/AuthProvider/AuthProvider";
 import Swal from "sweetalert2";
 import useToDoTasks from "../../hooks/useToDoTasks";
@@ -178,26 +178,54 @@ const Dashboard = () => {
         });
     }
 
+    const [toDoId, setToDoId] = useState('')
+    const [onGoingId, setOnGoingId] = useState('')
+    const [completeId, setCompleteId] = useState('')
+
+    const handleToDoModal = (data) => {
+        console.log(data);
+        setToDoId(data._id)
+        const modal = document.getElementById('to_do_update_modal');
+        modal.querySelector('textarea').value = data?.task;
+        console.log('type of id', typeof(data._id));
+        modal.showModal();
+    }
+    const handleOnGoingModal = (data) => {
+        setOnGoingId(data._id)
+        console.log(data);
+        const modal = document.getElementById('onGoing_update_modal');
+        modal.querySelector('textarea').value = data?.task;
+        modal.showModal();
+    }
+    const handleCompleteModal = (data) => {
+        setCompleteId(data._id)
+        console.log(data);
+        const modal = document.getElementById('complete_update_modal');
+        modal.querySelector('textarea').value = data?.task;
+        modal.showModal();
+    }
+
     const handleToDoUpdate = (data) => {
         console.log(data);
-            // Assuming you have a reference to the modal element
-    const modal = document.getElementById('to_do_update_modal');
-
-    // Set the default value for the textarea
-    modal.querySelector('textarea').value = data?.task;
-
-    // Show the modal
-    modal.showModal();
-        // axiosSecure.patch(`/toDo/${data?._id}`)
-        // .then(res => {
-        //     console.log(res.data);
-        // })
+        console.log('toDoId', typeof(toDoId));
+        axiosSecure.patch(`/toDo/${toDoId}`, data)
+        .then(res => {
+            console.log(res.data);
+        })
     }
     const handleOnGoingUpdate = (data) => {
         console.log(data);
+          axiosSecure.patch(`/onGoing/${onGoingId}`, data)
+        .then(res => {
+            console.log(res.data);
+        })
     }
     const handleCompleteUpdate = (data) => {
         console.log(data);
+          axiosSecure.patch(`/complete/${completeId}`, data)
+        .then(res => {
+            console.log(res.data);
+        })
     }
 
     useEffect(() => {
@@ -215,7 +243,7 @@ const Dashboard = () => {
                     <h1 className="text-2xl font-semibold text-center space-y-3">To-Do List</h1>
                     <div className="my-5 min-h-[300px]">
                         {
-                            toDoTasks?.map((toDoTask) => <div key={toDoTask._id} className="flex justify-between items-center space-y-2 bg-[#ffbe0b] min-h-[60px] text-black my-1 px-2 py-1"> <p> {toDoTask.task}</p> <div className="flex justify-between items-center"><span onClick={() => handleToDoUpdate(toDoTask)} className="mr-2 cursor-pointer"> <FaEdit></FaEdit> </span><span onClick={() => handleToDoDelete(toDoTask)} className="text-red-500 text-2xl cursor-pointer"><MdDelete></MdDelete></span></div> </div>)
+                            toDoTasks?.map((toDoTask) => <div key={toDoTask._id} className="flex justify-between items-center space-y-2 bg-[#ffbe0b] min-h-[60px] text-black my-1 px-2 py-1"> <p> {toDoTask.task}</p> <div className="flex justify-between items-center"><span onClick={() => handleToDoModal(toDoTask)} className="mr-2 cursor-pointer"> <FaEdit></FaEdit> </span><span onClick={() => handleToDoDelete(toDoTask)} className="text-red-500 text-2xl cursor-pointer"><MdDelete></MdDelete></span></div> </div>)
                         }
                     </div>
                     <div>
@@ -226,7 +254,7 @@ const Dashboard = () => {
                     <h1 className="text-center text-2xl font-semibold">Ongoing List</h1>
                     <div className="my-5 min-h-[300px]">
                         {
-                            onGoingTasks?.map((onGoingTask) => <div key={onGoingTask._id} className="flex justify-between items-center space-y-2 bg-[#ffbe0b] min-h-[60px] text-black my-1 px-2 py-1"> <p>{onGoingTask.task}</p> <div className="flex justify-between items-center"><span onClick={() => handleOnGoingUpdate(onGoingTask)} className="mr-2 cursor-pointer"> <FaEdit></FaEdit> </span><span onClick={() => handleOnGoingDelete(onGoingTask)} className="text-red-500 text-2xl cursor-pointer"><MdDelete></MdDelete></span></div></div>)
+                            onGoingTasks?.map((onGoingTask) => <div key={onGoingTask._id} className="flex justify-between items-center space-y-2 bg-[#ffbe0b] min-h-[60px] text-black my-1 px-2 py-1"> <p>{onGoingTask.task}</p> <div className="flex justify-between items-center"><span onClick={() => handleOnGoingModal(onGoingTask)} className="mr-2 cursor-pointer"> <FaEdit></FaEdit> </span><span onClick={() => handleOnGoingDelete(onGoingTask)} className="text-red-500 text-2xl cursor-pointer"><MdDelete></MdDelete></span></div></div>)
                         }
                     </div>
                     <div>
@@ -237,7 +265,7 @@ const Dashboard = () => {
                     <h1 className="text-center text-2xl font-semibold">Completed List</h1>
                     <div className="my-5 min-h-[300px]">
                         {
-                            completedTasks?.map((completedTask) => <div key={completedTask._id} className="flex justify-between items-center space-y-2 bg-[#ffbe0b] text-black my-1 px-2 py-1 min-h-[60px]"> <p> {completedTask.task}</p><div className="flex justify-between items-center"><span onClick={() => handleCompleteUpdate(completedTask)} className="mr-2 cursor-pointer"> <FaEdit></FaEdit> </span><span onClick={() => handleCompleteDelete(completedTask)} className="text-red-500 text-2xl cursor-pointer"><MdDelete></MdDelete></span></div></div>)
+                            completedTasks?.map((completedTask) => <div key={completedTask._id} className="flex justify-between items-center space-y-2 bg-[#ffbe0b] text-black my-1 px-2 py-1 min-h-[60px]"> <p> {completedTask.task}</p><div className="flex justify-between items-center"><span onClick={() => handleCompleteModal(completedTask)} className="mr-2 cursor-pointer"> <FaEdit></FaEdit> </span><span onClick={() => handleCompleteDelete(completedTask)} className="text-red-500 text-2xl cursor-pointer"><MdDelete></MdDelete></span></div></div>)
                         }
                     </div>
                     <div>
@@ -291,17 +319,47 @@ const Dashboard = () => {
                 </div>
             </dialog>
 
+                            {/* update modal here  */}
 
-            {/* update modal here  */}
-              {/* to do task modal here  */}
-              <dialog id="to_do_update_modal" className="modal bg-[#385229]">
+            {/* to do task modal here  */}
+            <dialog id="to_do_update_modal" className="modal bg-[#385229]">
                 <div className="modal-box text-black">
                     <form method="dialog">
                         {/* if there is a button in form, it will close the modal */}
                         <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
                     </form>
-                    <form onSubmit={handleSubmit(handleToDoTask)} className=" mx-4">
-                        <textarea  className="w-full p-2 " {...register("toDoTask")} />
+                    <form onSubmit={handleSubmit(handleToDoUpdate)} className=" mx-4">
+                        <textarea className="w-full p-2 " {...register("toDoTask")} />
+                        <div className=" flex justify-center">
+                            <input type="submit" className="bg-[#6a994e] px-4 font-semibold text-white py-[2px]" />
+                        </div>
+                    </form>
+                </div>
+            </dialog>
+            {/* Ongoing task modal here  */}
+            <dialog id="onGoing_update_modal" className="modal bg-[#385229]">
+                <div className="modal-box text-black">
+                    <form method="dialog">
+                        {/* if there is a button in form, it will close the modal */}
+                        <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+                    </form>
+                    <form onSubmit={handleSubmit(handleOnGoingUpdate)} className=" mx-4">
+                        <textarea className="w-full p-2 " {...register("onGoingTask")} />
+                        <div className=" flex justify-center">
+                            <input type="submit" className="bg-[#6a994e] px-4 font-semibold text-white py-[2px]" />
+                        </div>
+                    </form>
+                </div>
+            </dialog>
+            {/* complete task modal here  */}
+            <dialog id="complete_update_modal" className="modal bg-[#385229]">
+                <div className="modal-box text-black">
+                    <form method="dialog">
+                        {/* if there is a button in form, it will close the modal */}
+                        <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+                    </form>
+                    <form onSubmit={handleSubmit(handleCompleteUpdate)} className=" mx-4">
+                        <textarea className="w-full p-2 " {...register("completeTask")} />
                         <div className=" flex justify-center">
                             <input type="submit" className="bg-[#6a994e] px-4 font-semibold text-white py-[2px]" />
                         </div>
