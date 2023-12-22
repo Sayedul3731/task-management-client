@@ -8,6 +8,7 @@ import useToDoTasks from "../../hooks/useToDoTasks";
 import useOnGoingTasks from "../../hooks/useOnGoingTasks";
 import useCompleteTasks from "../../hooks/useCompleteTasks";
 import { MdDelete } from "react-icons/md";
+import { FaEdit } from "react-icons/fa";
 
 const Dashboard = () => {
     const { register, handleSubmit, reset } = useForm();
@@ -15,7 +16,7 @@ const Dashboard = () => {
     const axiosSecure = useAxiosSecure();
     const [toDoTasks, refetchToDo] = useToDoTasks();
     const [onGoingTasks, refetchOnGoing] = useOnGoingTasks();
-    const [completedTasks,refetchCompleted] = useCompleteTasks();
+    const [completedTasks, refetchCompleted] = useCompleteTasks();
     const handleToDoTask = (data) => {
         document.getElementById('to_do_task_modal').showModal()
         const newToDo = {
@@ -92,9 +93,9 @@ const Dashboard = () => {
         }
         reset()
     }
-   
 
-    const handleToDoDelete = (data) =>{
+
+    const handleToDoDelete = (data) => {
         console.log(data);
         Swal.fire({
             title: "Are you sure?",
@@ -104,25 +105,25 @@ const Dashboard = () => {
             confirmButtonColor: "#3085d6",
             cancelButtonColor: "#d33",
             confirmButtonText: "Yes, delete it!"
-          }).then((result) => {
+        }).then((result) => {
             if (result.isConfirmed) {
                 axiosSecure.delete(`/toDo/${data?._id}`)
-                .then(res =>{
-                    console.log(res.data);
-                    if(res.data?.deletedCount > 0){
-                        Swal.fire({
-                            title: "Deleted!",
-                            text: "Your task has been deleted.",
-                            icon: "success"
-                          });
-                        refetchToDo()
-                    }
-                })
+                    .then(res => {
+                        console.log(res.data);
+                        if (res.data?.deletedCount > 0) {
+                            Swal.fire({
+                                title: "Deleted!",
+                                text: "Your task has been deleted.",
+                                icon: "success"
+                            });
+                            refetchToDo()
+                        }
+                    })
             }
-          });
-       
+        });
+
     }
-    const handleOnGoingDelete = (data) =>{
+    const handleOnGoingDelete = (data) => {
         console.log(data);
         Swal.fire({
             title: "Are you sure?",
@@ -132,24 +133,24 @@ const Dashboard = () => {
             confirmButtonColor: "#3085d6",
             cancelButtonColor: "#d33",
             confirmButtonText: "Yes, delete it!"
-          }).then((result) => {
+        }).then((result) => {
             if (result.isConfirmed) {
                 axiosSecure.delete(`/onGoing/${data?._id}`)
-                .then(res =>{
-                    console.log(res.data);
-                    if(res.data?.deletedCount > 0) {
-                        Swal.fire({
-                          title: "Deleted!",
-                          text: "Your file has been deleted.",
-                          icon: "success"
-                        });
-                        refetchOnGoing()
-                    }
-                })
+                    .then(res => {
+                        console.log(res.data);
+                        if (res.data?.deletedCount > 0) {
+                            Swal.fire({
+                                title: "Deleted!",
+                                text: "Your file has been deleted.",
+                                icon: "success"
+                            });
+                            refetchOnGoing()
+                        }
+                    })
             }
-          });
+        });
     }
-    const handleCompleteDelete = (data) =>{
+    const handleCompleteDelete = (data) => {
         console.log(data);
         Swal.fire({
             title: "Are you sure?",
@@ -159,22 +160,44 @@ const Dashboard = () => {
             confirmButtonColor: "#3085d6",
             cancelButtonColor: "#d33",
             confirmButtonText: "Yes, delete it!"
-          }).then((result) => {
+        }).then((result) => {
             if (result.isConfirmed) {
                 axiosSecure.delete(`/complete/${data?._id}`)
-                .then(res =>{
-                    console.log(res.data);
-                    if(res.data?.deletedCount > 0 ){
-                        Swal.fire({
-                          title: "Deleted!",
-                          text: "Your file has been deleted.",
-                          icon: "success"
-                        });
-                        refetchCompleted()
-                    }
-                })
+                    .then(res => {
+                        console.log(res.data);
+                        if (res.data?.deletedCount > 0) {
+                            Swal.fire({
+                                title: "Deleted!",
+                                text: "Your file has been deleted.",
+                                icon: "success"
+                            });
+                            refetchCompleted()
+                        }
+                    })
             }
-          });
+        });
+    }
+
+    const handleToDoUpdate = (data) => {
+        console.log(data);
+            // Assuming you have a reference to the modal element
+    const modal = document.getElementById('to_do_update_modal');
+
+    // Set the default value for the textarea
+    modal.querySelector('textarea').value = data?.task;
+
+    // Show the modal
+    modal.showModal();
+        // axiosSecure.patch(`/toDo/${data?._id}`)
+        // .then(res => {
+        //     console.log(res.data);
+        // })
+    }
+    const handleOnGoingUpdate = (data) => {
+        console.log(data);
+    }
+    const handleCompleteUpdate = (data) => {
+        console.log(data);
     }
 
     useEffect(() => {
@@ -192,7 +215,7 @@ const Dashboard = () => {
                     <h1 className="text-2xl font-semibold text-center space-y-3">To-Do List</h1>
                     <div className="my-5 min-h-[300px]">
                         {
-                            toDoTasks?.map((toDoTask, index) => <div key={toDoTask._id} className="flex justify-between items-center space-y-2"> <p>{index + 1}<span>.</span> {toDoTask.task}</p> <span onClick={() => handleToDoDelete(toDoTask)} className="text-red-500 text-2xl cursor-pointer"> <MdDelete></MdDelete> </span></div>)
+                            toDoTasks?.map((toDoTask) => <div key={toDoTask._id} className="flex justify-between items-center space-y-2 bg-[#ffbe0b] min-h-[60px] text-black my-1 px-2 py-1"> <p> {toDoTask.task}</p> <div className="flex justify-between items-center"><span onClick={() => handleToDoUpdate(toDoTask)} className="mr-2 cursor-pointer"> <FaEdit></FaEdit> </span><span onClick={() => handleToDoDelete(toDoTask)} className="text-red-500 text-2xl cursor-pointer"><MdDelete></MdDelete></span></div> </div>)
                         }
                     </div>
                     <div>
@@ -203,7 +226,7 @@ const Dashboard = () => {
                     <h1 className="text-center text-2xl font-semibold">Ongoing List</h1>
                     <div className="my-5 min-h-[300px]">
                         {
-                            onGoingTasks?.map((onGoingTask, index) => <div key={onGoingTask._id} className="flex justify-between items-center space-y-2"> <p>{index + 1}<span>.</span> {onGoingTask.task}</p> <span onClick={() => handleOnGoingDelete(onGoingTask)} className="text-red-500 text-2xl cursor-pointer"> <MdDelete></MdDelete> </span></div>)
+                            onGoingTasks?.map((onGoingTask) => <div key={onGoingTask._id} className="flex justify-between items-center space-y-2 bg-[#ffbe0b] min-h-[60px] text-black my-1 px-2 py-1"> <p>{onGoingTask.task}</p> <div className="flex justify-between items-center"><span onClick={() => handleOnGoingUpdate(onGoingTask)} className="mr-2 cursor-pointer"> <FaEdit></FaEdit> </span><span onClick={() => handleOnGoingDelete(onGoingTask)} className="text-red-500 text-2xl cursor-pointer"><MdDelete></MdDelete></span></div></div>)
                         }
                     </div>
                     <div>
@@ -214,7 +237,7 @@ const Dashboard = () => {
                     <h1 className="text-center text-2xl font-semibold">Completed List</h1>
                     <div className="my-5 min-h-[300px]">
                         {
-                            completedTasks?.map((completedTask, index) => <div key={completedTask._id} className="flex justify-between items-center space-y-2"> <p>{index + 1}<span>.</span> {completedTask.task}</p> <span onClick={() => handleCompleteDelete(completedTask)} className="text-red-500 text-2xl cursor-pointer"> <MdDelete></MdDelete> </span></div>)
+                            completedTasks?.map((completedTask) => <div key={completedTask._id} className="flex justify-between items-center space-y-2 bg-[#ffbe0b] text-black my-1 px-2 py-1 min-h-[60px]"> <p> {completedTask.task}</p><div className="flex justify-between items-center"><span onClick={() => handleCompleteUpdate(completedTask)} className="mr-2 cursor-pointer"> <FaEdit></FaEdit> </span><span onClick={() => handleCompleteDelete(completedTask)} className="text-red-500 text-2xl cursor-pointer"><MdDelete></MdDelete></span></div></div>)
                         }
                     </div>
                     <div>
@@ -261,6 +284,24 @@ const Dashboard = () => {
                     </form>
                     <form onSubmit={handleSubmit(handleCompletedTask)} className=" mx-4">
                         <textarea className="w-full p-2 " {...register("completeTask")} placeholder="Write here your task ..." />
+                        <div className=" flex justify-center">
+                            <input type="submit" className="bg-[#6a994e] px-4 font-semibold text-white py-[2px]" />
+                        </div>
+                    </form>
+                </div>
+            </dialog>
+
+
+            {/* update modal here  */}
+              {/* to do task modal here  */}
+              <dialog id="to_do_update_modal" className="modal bg-[#385229]">
+                <div className="modal-box text-black">
+                    <form method="dialog">
+                        {/* if there is a button in form, it will close the modal */}
+                        <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+                    </form>
+                    <form onSubmit={handleSubmit(handleToDoTask)} className=" mx-4">
+                        <textarea  className="w-full p-2 " {...register("toDoTask")} />
                         <div className=" flex justify-center">
                             <input type="submit" className="bg-[#6a994e] px-4 font-semibold text-white py-[2px]" />
                         </div>
