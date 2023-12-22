@@ -248,7 +248,7 @@ const Dashboard = () => {
                     <h1 className="text-2xl font-semibold">Tasks</h1>
                     <div className="my-5 min-h-[300px]">
                         {
-                            personalTasks.length > 0 ? personalTasks?.map((personalTask) => <div key={personalTask._id} className="flex justify-between items-center space-y-2 bg-[#6C0A0F] text-white min-h-[60px] text-black my-1 px-2 py-1"> <div><p>Title: {personalTask.title}</p> <p> Task: {personalTask.description}</p></div> <div className="flex justify-between items-center"><span onClick={() => handleNewTaskModal(personalTask)} className="mr-2 cursor-pointer"> <FaEdit></FaEdit> </span><span onClick={() => handleNewTaskDelete(personalTask)} className=" text-2xl cursor-pointer"><MdDelete></MdDelete></span></div> </div>) : <h1 className="text-3xl font-medium text-center text-red-500">There is no task available</h1>
+                            personalTasks.length > 0 ? personalTasks?.map((personalTask) => <div key={personalTask._id} className="flex justify-between items-center space-y-2 bg-[#f3b034]   min-h-[60px] text-black my-1 px-2 py-1"> <div><p>Title: {personalTask.title}</p> <p> Task: {personalTask.description}</p></div> <div className="flex justify-between items-center"><span onClick={() => handleNewTaskModal(personalTask)} className="mr-2 cursor-pointer"> <FaEdit></FaEdit> </span><span onClick={() => handleNewTaskDelete(personalTask)} className=" text-2xl cursor-pointer"><MdDelete></MdDelete></span></div> </div>) : <h1 className="text-3xl font-medium text-center text-red-500">There is no task available</h1>
                         }
                     </div>
                     <div>
@@ -261,7 +261,7 @@ const Dashboard = () => {
                     <h1 className="text-2xl font-semibold text-center space-y-3">To-Do List</h1>
                     <div className="my-5 min-h-[300px]">
                         {
-                            toDoTasks.length > 0 ? toDoTasks?.map((toDoTask) => <div key={toDoTask._id} className="flex justify-between items-center space-y-2 bg-[#6C0A0F] text-white min-h-[60px] text-black my-1 px-2 py-1"> <div><p>Title: {toDoTask.title}</p> <p> Task: {toDoTask.description}</p></div> <div className="flex justify-between items-center"><span onClick={() => handleToDoModal(toDoTask)} className="mr-2 cursor-pointer"> <FaEdit></FaEdit> </span><span onClick={() => handleToDoDelete(toDoTask)} className=" text-2xl cursor-pointer"><MdDelete></MdDelete></span></div> </div>) : <h1 className="text-2xl font-medium text-center text-red-500">There is no task available</h1>
+                            toDoTasks.length > 0 ? toDoTasks?.map((toDoTask) => <div key={toDoTask._id} className="flex justify-between items-center space-y-2 bg-[#f3b034]  min-h-[60px] text-black my-1 px-2 py-1"> <div><p>Title: {toDoTask.title}</p> <p> Task: {toDoTask.description}</p></div> <div className="flex justify-between items-center"><span onClick={() => handleToDoModal(toDoTask)} className="mr-2 cursor-pointer"> <FaEdit></FaEdit> </span><span onClick={() => handleToDoDelete(toDoTask)} className=" text-2xl cursor-pointer"><MdDelete></MdDelete></span></div> </div>) : <h1 className="text-2xl font-medium text-center text-red-500">There is no task available</h1>
                         }
                     </div>
                 </div>
@@ -269,7 +269,7 @@ const Dashboard = () => {
                     <h1 className="text-center text-2xl font-semibold">Ongoing List</h1>
                     <div className="my-5 min-h-[300px]">
                         {
-                            onGoingTasks?.map((onGoingTask) => <div key={onGoingTask._id} className="flex justify-between items-center space-y-2 bg-[#6C0A0F] text-white min-h-[60px] text-black my-1 px-2 py-1"> <p>{onGoingTask.task}</p> <div className="flex justify-between items-center"><span onClick={() => handleOnGoingModal(onGoingTask)} className="mr-2 cursor-pointer"> <FaEdit></FaEdit> </span><span onClick={() => handleOnGoingDelete(onGoingTask)} className=" text-2xl cursor-pointer"><MdDelete></MdDelete></span></div></div>)
+                            onGoingTasks?.map((onGoingTask) => <div key={onGoingTask._id} className="flex justify-between items-center space-y-2 bg-[#f3b034]  min-h-[60px] text-black my-1 px-2 py-1"> <p>{onGoingTask.task}</p> <div className="flex justify-between items-center"><span onClick={() => handleOnGoingModal(onGoingTask)} className="mr-2 cursor-pointer"> <FaEdit></FaEdit> </span><span onClick={() => handleOnGoingDelete(onGoingTask)} className=" text-2xl cursor-pointer"><MdDelete></MdDelete></span></div></div>)
                         }
                     </div>
                 </div>
@@ -277,7 +277,7 @@ const Dashboard = () => {
                     <h1 className="text-center text-2xl font-semibold">Completed List</h1>
                     <div className="my-5 min-h-[300px]">
                         {
-                            completedTasks?.map((completedTask) => <div key={completedTask._id} className="flex justify-between items-center space-y-2 bg-[#6C0A0F] text-white text-black my-1 px-2 py-1 min-h-[60px]"> <p> {completedTask.task}</p><div className="flex justify-between items-center"><span onClick={() => handleCompleteModal(completedTask)} className="mr-2 cursor-pointer"> <FaEdit></FaEdit> </span><span onClick={() => handleCompleteDelete(completedTask)} className=" text-2xl cursor-pointer"><MdDelete></MdDelete></span></div></div>)
+                            completedTasks?.map((completedTask) => <div key={completedTask._id} className="flex justify-between items-center space-y-2 bg-[#f3b034]  text-black my-1 px-2 py-1 min-h-[60px]"> <p> {completedTask.task}</p><div className="flex justify-between items-center"><span onClick={() => handleCompleteModal(completedTask)} className="mr-2 cursor-pointer"> <FaEdit></FaEdit> </span><span onClick={() => handleCompleteDelete(completedTask)} className=" text-2xl cursor-pointer"><MdDelete></MdDelete></span></div></div>)
                         }
                     </div>
                 </div>

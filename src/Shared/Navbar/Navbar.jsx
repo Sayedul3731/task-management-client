@@ -70,7 +70,7 @@ const Navbar = () => {
           }</label>
           <ul tabIndex={0} className="dropdown-content z-[1] menu p-4 shadow bg-[#6C0A0F] rounded-box w-52">
             <li>{user?.displayName}</li>
-            <li onClick={handleLogOut} className="cursor-pointer">LogOut</li>
+            <li onClick={handleLogOut} className="cursor-pointer mt-2">LogOut</li>
           </ul>
         </div>
       </div>
