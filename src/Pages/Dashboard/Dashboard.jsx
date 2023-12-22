@@ -257,7 +257,7 @@ const Dashboard = () => {
                 </div>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-3 gap-5 mt-10 space-y-5 md:space-y-5 lg:space-y-0">
-                <div>
+                <div className="bg-[#6a994e] py-5 px-3">
                     <h1 className="text-2xl font-semibold text-center space-y-3">To-Do List</h1>
                     <div className="my-5 min-h-[300px]">
                         {
@@ -265,7 +265,7 @@ const Dashboard = () => {
                         }
                     </div>
                 </div>
-                <div>
+                <div className="bg-[#6a994e] py-5 px-3">
                     <h1 className="text-center text-2xl font-semibold">Ongoing List</h1>
                     <div className="my-5 min-h-[300px]">
                         {
@@ -273,7 +273,7 @@ const Dashboard = () => {
                         }
                     </div>
                 </div>
-                <div>
+                <div className="bg-[#6a994e] py-5 px-3">
                     <h1 className="text-center text-2xl font-semibold">Completed List</h1>
                     <div className="my-5 min-h-[300px]">
                         {
