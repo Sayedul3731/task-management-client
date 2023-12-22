@@ -5,7 +5,6 @@ import { AuthContext } from '../Provider/AuthProvider/AuthProvider';
 
 const useToDoTasks = () => {
     const {user} = useContext(AuthContext);
-    console.log(user?.email);
     const axiosSecure = useAxiosSecure()
     const { data: toDoTasks = [],refetch } = useQuery({
         queryKey: ['toDoTasks', user?.email],

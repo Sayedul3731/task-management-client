@@ -18,6 +18,13 @@ const Navbar = () => {
               Dashboard
             </NavLink>
         </li>
+       {
+        user?.email ? '' :  <li>
+        <NavLink className={({ isActive, isPending }) => isPending ? "pending" : isActive ? "lg:text-xl md:font-medium mr-4 underline" : "lg:text-xl md:font-medium mr-4"} to="/Register">
+          Jon Now
+        </NavLink>
+    </li>
+       }
     </>
 
 const handleLogOut = () => {
@@ -30,7 +37,7 @@ const handleLogOut = () => {
           showConfirmButton: false,
           timer: 1000
         });
-        navigate("/Login")
+        navigate("/")
       })
       .catch()
   }

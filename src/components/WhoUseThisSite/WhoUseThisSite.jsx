@@ -6,7 +6,7 @@ const WhoUseThisSite = () => {
     return (
         <div className="my-10">
             <h1 className="text-4xl font-bold text-center">Who Can Use This Site?</h1>
-            <p className="text-center my-5">
+            <p className="text-justify md:text-center px-2 my-5">
                 Welcome to our advanced task management platform, crafted for developers, corporate professionals, and bankers alike. Tailored to meet your unique needs, it seamlessly enhances productivity, collaboration, and project control. Experience the future of efficient task management, designed specifically for your professional success.</p>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mt-10">
                 <div className="card bg-base-100 shadow-xl text-black">
